@@ -25,6 +25,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.practice.journalApp.entity.User;
+import com.practice.journalApp.repository.UserRepository;
 import com.practice.journalApp.service.UserService;
 
 
@@ -36,7 +37,8 @@ public class UserController {
 	@Autowired
 	private UserService userService;
 	
-	
+	@Autowired
+	private UserRepository userRepository;
 
 	
 	@PutMapping
@@ -48,9 +50,17 @@ public class UserController {
 
 		updatedUser.setUserName(user.getUserName());
 		updatedUser.setPassword(user.getPassword());
-		userService.saveEntry(updatedUser);
+		userService.saveNewEntry(updatedUser);
 
 		return new ResponseEntity<>(user,HttpStatus.NO_CONTENT);
+	}
+	
+	@DeleteMapping
+	public ResponseEntity<?> deleteByUserId()
+	{
+		Authentication auth=SecurityContextHolder.getContext().getAuthentication();
+		userRepository.deleteByUserName(auth.getName());
+		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 	}
 	
 	
