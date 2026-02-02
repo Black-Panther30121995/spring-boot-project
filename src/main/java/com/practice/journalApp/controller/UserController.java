@@ -24,9 +24,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.practice.journalApp.api.response.QuoteResponse;
+import com.practice.journalApp.api.response.WeatherResponse;
 import com.practice.journalApp.entity.User;
 import com.practice.journalApp.repository.UserRepository;
+import com.practice.journalApp.service.QuoteService;
 import com.practice.journalApp.service.UserService;
+import com.practice.journalApp.service.WeatherService;
 
 
 @RestController
@@ -39,6 +43,12 @@ public class UserController {
 	
 	@Autowired
 	private UserRepository userRepository;
+
+	@Autowired
+	private WeatherService weatherService;
+	
+	@Autowired
+	private QuoteService quoteService;
 
 	
 	@PutMapping
@@ -62,6 +72,32 @@ public class UserController {
 		userRepository.deleteByUserName(auth.getName());
 		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 	}
+	
+
+		@GetMapping
+	public ResponseEntity<?> greeting() 
+	{
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+	    WeatherResponse weatherResponse = weatherService.getWeather("Delhi");
+	    String weatherInfo = "";
+	    if (weatherResponse != null) {
+	    	weatherInfo = "\nToday's weather feels like "+ weatherResponse.getCurrent().getFeelslike()+ "°C";
+		 }
+		    
+	    String quoteInfo = "";
+		 try 
+		 {
+		     QuoteResponse quote = quoteService.getQuote(List.of("success", "wisdom"));
+		     quoteInfo = "\n\n\"" + quote.getQuote() + "\"\n— " + quote.getAuthor();
+		 } catch (Exception e) 
+		 {
+		     quoteInfo = "\n\nHave a great day!";
+		 }
+
+		 String finalGreeting = "Hi " + auth.getName() + weatherInfo + quoteInfo;
+		 return new ResponseEntity<>(finalGreeting, HttpStatus.OK);
+	}
+
 	
 	
 	

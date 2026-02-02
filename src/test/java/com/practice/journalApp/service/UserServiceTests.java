@@ -1,10 +1,14 @@
 package com.practice.journalApp.service;
 
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ArgumentsSource;
 import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.ValueSource;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
@@ -17,13 +21,14 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Disabled;
 
-@SpringBootTest
+//@SpringBootTest
+@ExtendWith(MockitoExtension.class)
 public class UserServiceTests {
 	
-	@Autowired
+	@Mock
 	private UserRepository userRepository;
 	
-	@Autowired
+	@InjectMocks
 	private UserService userService;
 
 //	@ParameterizedTest
@@ -42,16 +47,18 @@ public class UserServiceTests {
 //	@BeforeEach
 //	@AfterAll
 	
-	@Disabled
+//	@Disabled
 	@ParameterizedTest
 	@CsvSource({
 		"1,1,2",
 		"2,10,12",
-		"3,3,9"
+		"3,3,6"
 	})
 	public void test(int a,int c, int expected)
 	{
 		assertEquals(expected,a+c);
 	}
+	
+	
 	
 }

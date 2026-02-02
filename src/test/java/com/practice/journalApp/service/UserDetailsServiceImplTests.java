@@ -16,10 +16,12 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.test.context.ActiveProfiles;
 
 import com.practice.journalApp.entity.User;
 import com.practice.journalApp.repository.UserRepository;
 
+@ActiveProfiles("dev")
 @ExtendWith(MockitoExtension.class)
 public class UserDetailsServiceImplTests {
 

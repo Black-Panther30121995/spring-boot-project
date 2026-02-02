@@ -12,17 +12,14 @@ import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
 @EnableWebSecurity
-@Profile("dev")
-public class SpringSecurity{
+@Profile("prod")
+public class SpringSecurityProd{
 	
 	@Bean
 	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception{
-		http.csrf(csrf->csrf.disable()).authorizeHttpRequests(auth->auth.
-				requestMatchers("/journal/**","/user/**").authenticated()
-				.requestMatchers("/admin/**").hasRole("ADMIN")
-				.anyRequest().permitAll())
+		http.csrf(csrf->csrf.disable()).authorizeHttpRequests(auth->auth.anyRequest().authenticated())
+			.sessionManagement(session->session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
 			.httpBasic();
-		http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and().csrf().disable();
 		
 		return http.build();
 	}

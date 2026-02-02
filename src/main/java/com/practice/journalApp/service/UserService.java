@@ -8,11 +8,16 @@ import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.practice.journalApp.entity.User;
 import com.practice.journalApp.repository.UserRepository;
 
+import lombok.extern.slf4j.Slf4j;
+
 @Component
+@Slf4j
 public class UserService {
 	
 	@Autowired
@@ -20,6 +25,7 @@ public class UserService {
 	
 	@Autowired
 	private PasswordEncoder passwordEncoder;
+	
 	
 	public boolean saveNewEntry(User user)
 	{
@@ -31,7 +37,11 @@ public class UserService {
 		}
 		catch(Exception e)
 		{
-			System.out.println(e);
+			log.error("Error occured for {} :",user.getUserName(),e);
+//			logger.warn("hahahaha");
+//			logger.info("hahahaha");
+//			logger.debug("hahahah");
+//			logger.trace("hahaha");
 			return false;
 		}
 
