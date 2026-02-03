@@ -7,11 +7,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.*;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import com.practice.journalApp.api.response.QuoteResponse;
 
-@Component
+@Service
 public class QuoteService {
 
     private static final String API_KEY = "5WoeLh8QqCNzfLFBMFMBBFSau9NpK3ewr2mIiQYo";
