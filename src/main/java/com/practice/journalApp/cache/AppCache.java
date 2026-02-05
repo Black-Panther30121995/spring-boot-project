@@ -24,6 +24,7 @@ public class AppCache {
 	@Autowired
 	private ConfigJournalAppRepository configJournalAppRepository;
 	
+
 	@PostConstruct
 	public void init()
 	{

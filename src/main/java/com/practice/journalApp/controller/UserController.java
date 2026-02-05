@@ -78,7 +78,7 @@ public class UserController {
 	public ResponseEntity<?> greeting() 
 	{
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-	    WeatherResponse weatherResponse = weatherService.getWeather("Delhi");
+	    WeatherResponse weatherResponse = weatherService.getWeather("Mumbai");
 	    String weatherInfo = "";
 	    if (weatherResponse != null) {
 	    	weatherInfo = "\nToday's weather feels like "+ weatherResponse.getCurrent().getFeelslike()+ "°C";
