@@ -25,7 +25,7 @@ import com.practice.journalApp.entity.User;
 import com.practice.journalApp.service.JournalEntryService;
 import com.practice.journalApp.service.UserService;
 @RestController
-@RequestMapping("/journal")
+@RequestMapping("/journal-content")
 public class JournalEntryControllerV2 {
 
 	@Autowired
